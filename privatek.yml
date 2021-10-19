@@ -6,11 +6,7 @@ resources:
     branch: main
     private_key: |
       -----BEGIN OPENSSH PRIVATE KEY-----
-      b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
-      QyNTUxOQAAACDUJGk3QdtO9XiDzPzlf54wmQfsVcMmcCtRaoZQsQMlmgAAAJA6YncpOmJ3
-      KQAAAAtzc2gtZWQyNTUxOQAAACDUJGk3QdtO9XiDzPzlf54wmQfsVcMmcCtRaoZQsQMlmg
-      AAAEDPyh/9SgYoJeeY1mnzFmB53rneXqzasR+WOGpekSLj0tQkaTdB2071eIPM/OV/njCZ
-      B+xVwyZwK1FqhlCxAyWaAAAAC2plbmtpbnMga2V5AQI=
+     
       -----END OPENSSH PRIVATE KEY-----
       
 jobs:
