@@ -7,7 +7,7 @@ resources:
         uri: https://github.com/ashidubey/concourse.git
         branch: main
         username: ashidubey
-        password: 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
+        password: xxxxxxxxxxxxxxxxxxxxxxxx
    
 
 jobs:
