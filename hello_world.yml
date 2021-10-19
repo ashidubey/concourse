@@ -1,0 +1,47 @@
+
+resources:
+- name: repo
+  type: git
+  source:
+    uri: https://github.com/concourse/examples.git
+jobs:
+- name: hello-world-job
+  plan:
+  - get:  repo
+    trigger: true
+  - task: hello-world-task
+    config:
+      platform: linux
+      image_resource:
+        type: registry-image 
+        source:
+          repository: bash
+      outputs:
+       - name: repos   
+      run:
+         path: sh
+         args:
+          - -c
+          - |
+            ls -l
+            echo "hello from another step!" >> repos/message
+            echo "start pipeline" >>repos/message
+
+  - task: read-repos
+    config:
+      platform: linux
+      image_resource:
+        type: registry-image 
+        source:
+          repository: bash
+      inputs: 
+      - name: repos
+      run:
+        path: sh
+        args:
+        - -c
+        - | 
+          echo "inputs messages"
+          ls -la >> repos/message
+          cat repos/message
+           

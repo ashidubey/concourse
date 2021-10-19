@@ -1,0 +1,23 @@
+resources:
+- name: demo
+  type: git
+  source:
+    uri: https://github.com/concourse/examples.git
+
+jobs:
+- name: pipe
+  plan:
+  - get: demo
+    trigger: true
+  - task: task1
+    config:
+      platform: linux
+      image_resource:
+        type: registry-image
+        source:
+          repository: bash
+      inputs:
+      - name: demo
+      run:
+        path: cat
+        args: ["demo/README.md"]      

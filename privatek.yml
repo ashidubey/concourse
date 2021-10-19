@@ -1,0 +1,42 @@
+resources:
+- name: repo
+  type: git
+  source:
+    uri: git@github.com:ashidubey/HTML_assgnment.git
+    branch: main
+    private_key: |
+      -----BEGIN OPENSSH PRIVATE KEY-----
+      b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
+      QyNTUxOQAAACDUJGk3QdtO9XiDzPzlf54wmQfsVcMmcCtRaoZQsQMlmgAAAJA6YncpOmJ3
+      KQAAAAtzc2gtZWQyNTUxOQAAACDUJGk3QdtO9XiDzPzlf54wmQfsVcMmcCtRaoZQsQMlmg
+      AAAEDPyh/9SgYoJeeY1mnzFmB53rneXqzasR+WOGpekSLj0tQkaTdB2071eIPM/OV/njCZ
+      B+xVwyZwK1FqhlCxAyWaAAAAC2plbmtpbnMga2V5AQI=
+      -----END OPENSSH PRIVATE KEY-----
+      
+jobs:
+- name: commiting
+  plan: 
+  - get: repo
+    trigger: true
+  - task: create-commit 
+    config:
+      platform: linux
+      image_resource: {type: registry-image, source: {repository: gitea/gitea}}
+      inputs: [name: repo] 
+      outputs: [name: repo]
+      params: {EMAIL: ashi.dubey@knoldus.com, GIT_AUHTOR_NAME: Ashi Dubey}
+      run:
+        path: sh
+        args:
+        - -cx
+        - |
+          cd repo
+          ls -la 
+          date +%Y-%m-%d > todays_date
+          git add ./todays_date
+          git config --global user.email $EMAIL
+          git config --global user.name $GIT_AUTHOR_NAME
+          git commit -m "Update todays date"
+  - put: repo
+    params:
+      repository: repo
